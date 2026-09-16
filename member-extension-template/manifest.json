@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Scrambled Minds",
+  "version": "0.5.6",
+  "description": "Prepared member extension for Scrambled Minds project research capture.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://script.google.com/*","https://script.googleusercontent.com/*","https://*.googleusercontent.com/*","https://chatgpt.com/*","https://*.chatgpt.com/*","https://chat.openai.com/*","https://*.chat.openai.com/*","https://claude.ai/*","https://*.claude.ai/*","https://perplexity.ai/*","https://www.perplexity.ai/*","https://deepseek.com/*","https://chat.deepseek.com/*","https://grok.com/*","https://x.com/i/grok*","https://*.x.com/i/grok*","https://gemini.google.com/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {"service_worker":"src/background.js"},
+  "content_scripts": [{"matches":["https://chatgpt.com/*","https://*.chatgpt.com/*","https://chat.openai.com/*","https://*.chat.openai.com/*","https://claude.ai/*","https://*.claude.ai/*","https://perplexity.ai/*","https://www.perplexity.ai/*","https://deepseek.com/*","https://chat.deepseek.com/*","https://grok.com/*","https://x.com/i/grok*","https://*.x.com/i/grok*","https://gemini.google.com/*"],"js":["src/content.js"],"run_at":"document_idle"}],
+  "action": {
+    "default_popup":"src/popup.html",
+    "default_title":"Scrambled Minds",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}

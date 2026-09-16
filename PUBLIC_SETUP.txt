@@ -1,0 +1,197 @@
+SCRAMBLED MINDS — PUBLIC INSTALLATION GUIDE
+
+This guide explains how to deploy the exact Scrambled Minds extension workflow from this repository while keeping all installation-specific configuration manual and private.
+
+CONTENTS
+1. Security rules
+2. Requirements
+3. Deploy the Google Apps Script backend
+4. Build and load the admin extension
+5. Provision a member
+6. Prepare and load a member extension
+7. Verify capture and synchronization
+8. Updating the system
+9. Troubleshooting
+10. Files that must never be committed
+
+1. SECURITY RULES
+
+This repository intentionally contains placeholders instead of private deployment data. Never commit:
+- an Apps Script /exec URL for a private workspace;
+- the admin key;
+- a member activation token;
+- exported invite JSON files;
+- private email addresses or private Drive links.
+
+The admin key and member tokens are installation secrets. Enter them locally in the browser or local configuration file only. Do not paste them into GitHub, issue reports, chat, screenshots, or public documentation.
+
+2. REQUIREMENTS
+
+- Google account with access to Google Drive and Google Apps Script.
+- Google Chrome or a Chromium-based browser with Developer mode available.
+- Node.js and npm if you are rebuilding the admin extension from source.
+- A local clone of this repository.
+
+The member extension does not run a server. Members do not need the admin laptop to be online. The deployed Google Apps Script backend is the shared cloud endpoint.
+
+3. DEPLOY THE GOOGLE APPS SCRIPT BACKEND
+
+3.1 Create or open the Apps Script project
+
+1. Open https://script.google.com/.
+2. Create a new standalone Apps Script project, or open the project that will own this Scrambled Minds workspace.
+3. Copy the complete contents of `apps-script/Code.gs` into the Apps Script editor.
+4. Open `apps-script/appsscript.json` and copy its configuration into the Apps Script project's manifest if the editor exposes the manifest file.
+5. Save the project.
+
+Do not paste an admin key into Code.gs. The backend creates or reads the key through the setup action described in `apps-script/SETUP.md`.
+
+3.2 Run backend setup
+
+1. In Apps Script, select the `setupBuddy` function.
+2. Run it once.
+3. Approve the requested Google permissions for the account that owns the workspace.
+4. Record the generated admin key in a secure password manager or other private location. Do not put it in the repository.
+5. Keep the Drive folder created by setup as the backend's cloud root.
+
+3.3 Deploy the web app
+
+1. Select Deploy → New deployment.
+2. Choose Web app.
+3. Execute as the account that owns the backend.
+4. Set access to anyone who has the deployment URL, or the access mode required by your Google account and team policy.
+5. Deploy and copy the URL ending in `/exec`.
+6. Keep the URL private. It is installation configuration, not source code.
+
+Whenever Code.gs changes, create a new deployment version and use the current `/exec` URL. Existing Drive records are not fixtures for testing changes; test with a fresh conversation after deployment.
+
+4. BUILD AND LOAD THE ADMIN EXTENSION
+
+The admin extension source is in `scrambled-minds-admin-extension/`. The already-built package is in `scrambled-minds-admin-extension/admin-extension/dist/`.
+
+To rebuild from source:
+
+1. Open a terminal in `scrambled-minds-admin-extension`.
+2. Run `npm install`.
+3. Run `npm run typecheck`.
+4. Run `npm test`.
+5. Run `npm run build`.
+
+To load the extension:
+
+1. Open `chrome://extensions`.
+2. Enable Developer mode.
+3. Click Load unpacked.
+4. Select the complete `scrambled-minds-admin-extension/admin-extension/dist` folder.
+5. Open the Scrambled Minds admin extension.
+6. Enter the organization name, cloud root folder, deployed Apps Script `/exec` URL, and private admin key.
+7. Click Save settings, then Test connection.
+
+The admin settings are stored in the browser's extension storage. They are not part of the public repository.
+
+5. PROVISION A MEMBER
+
+1. In the admin extension, enter the member's name and Google email address.
+2. Click Provision member.
+3. Refresh the roster from the cloud if needed.
+4. Export the member invite JSON.
+5. Deliver the invite through a private channel. Do not commit it or publish it.
+6. If an invite is exposed, use Refresh activation invite before giving the member a new copy.
+
+A member can be disabled without deleting the member's cloud folder or existing chats. Permanent deletion is an owner-only operation and should be used deliberately.
+
+6. PREPARE AND LOAD A MEMBER EXTENSION
+
+6.1 Make a private member copy
+
+1. Copy the complete `member-extension-template` folder to a separate local folder for one member.
+2. Open the copied folder's `src/member-config.js`.
+3. Replace all four placeholders:
+   - `backendUrl`: the deployed Apps Script `/exec` URL;
+   - `memberId`: the exact member ID from the admin roster or invite;
+   - `email`: the member's Google email address;
+   - `memberToken`: the activation token from the private invite.
+4. Do not add the admin key to the member extension.
+5. Do not commit this configured member folder to a public repository.
+
+6.2 Load the member extension
+
+1. Open `chrome://extensions`.
+2. Enable Developer mode.
+3. Click Load unpacked.
+4. Select the complete private member folder containing `manifest.json`.
+5. Open the Scrambled Minds popup.
+6. Verify that the expected member identity is shown.
+7. Reload the extension after changing member-config.js.
+
+7. VERIFY CAPTURE AND SYNCHRONIZATION
+
+1. Open a supported AI platform in Chrome.
+2. Confirm the member extension is loaded.
+3. Turn Capture ON in the popup.
+4. Create a fresh test conversation containing a distinctive sentence.
+5. Wait for the conversation to settle and allow the extension to sync.
+6. Check the member's Drive area for the new chat.
+7. Confirm the filename uses the platform's title rules.
+8. Open the stored file and verify that user and assistant turns are in the correct order.
+9. Turn Capture OFF after testing.
+
+Test each platform separately. A fresh conversation is required when verifying a deployment or adapter change. Do not use an old corrupted file as proof that the current deployment works.
+
+Capture OFF means new conversations are ignored and are not queued or uploaded. The extension keeps a local retry queue for temporary outages and prevents duplicate synchronization events.
+
+8. UPDATING THE SYSTEM
+
+Backend update:
+1. Replace Code.gs in the Apps Script project.
+2. Save and deploy a new web-app version.
+3. Keep the current `/exec` URL if Apps Script preserves it.
+4. Test a fresh conversation.
+
+Admin update:
+1. Pull the repository changes.
+2. Run the typecheck, tests, and build commands.
+3. Reload the unpacked `admin-extension/dist` folder from chrome://extensions.
+
+Member update:
+1. Copy the updated member template into each member's private folder, or update the existing private folder carefully.
+2. Preserve that member's local config values.
+3. Reload the extension in Chrome.
+4. Test one fresh conversation.
+
+9. TROUBLESHOOTING
+
+No cloud connection:
+- Confirm the backend URL ends in `/exec`.
+- Confirm the deployment is accessible under its configured access policy.
+- Confirm the admin key is current.
+- Run `setupBuddy` only when setting up a new backend; do not rotate keys casually.
+
+Member rejected:
+- Confirm memberId, email, and memberToken are copied exactly.
+- Confirm the member is active in the admin roster.
+- Issue a new activation token if the old invite was exposed or expired.
+- Reload the extension after editing member-config.js.
+
+Conversation not captured:
+- Confirm Capture is ON.
+- Confirm the current site is one of the supported platforms.
+- Test with a fresh conversation.
+- Check the extension service-worker errors in chrome://extensions.
+- Do not enable capture for private or unrelated conversations.
+
+Duplicate or stale filename:
+- Verify the current Apps Script deployment is the version containing the session lookup and rename behavior.
+- Test with a fresh conversation after redeploying.
+- Existing incorrectly named files are not automatically proof of a current failure.
+
+10. FILES THAT MUST NEVER BE COMMITTED
+
+- Configured `src/member-config.js` files
+- Invite JSON exports
+- Admin keys
+- Member activation tokens
+- Private Apps Script deployment URLs
+- Browser profiles, extension storage exports, Drive exports, or screenshots containing private data
+
+The public template's `src/member-config.js` is intentionally safe to publish because it contains placeholders only.

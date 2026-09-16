@@ -1,0 +1,2 @@
+function r(e){return JSON.stringify({platform:e.platform,externalConversationId:e.externalConversationId,title:e.title.trim(),sourceUrl:e.sourceUrl,messages:e.messages.map(n=>({sequence:n.sequence,role:n.role,content:n.content.replace(/\r\n/g,`
+`).trim(),model:n.model??null}))})}async function o(e){const n=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(r(e)));return[...new Uint8Array(n)].map(t=>t.toString(16).padStart(2,"0")).join("")}function a(e,n){return`${e}:${n.trim()}`}function s(){return crypto.randomUUID()}export{o as c,s as n,a as s};

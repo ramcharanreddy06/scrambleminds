@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Scrambled Minds Admin",
+  "version": "0.1.2",
+  "description": "Admin workspace for Scrambled Minds team members and cloud folder assignments.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://script.google.com/*", "https://script.googleusercontent.com/*", "https://*.googleusercontent.com/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "admin.html",
+    "default_title": "Scrambled Minds Admin",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}

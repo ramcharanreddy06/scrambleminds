@@ -1,0 +1,3 @@
+import { contentHash } from './identity';
+import type { NormalizedConversation } from './types';
+export class ChangeDetector { private lastConversationKey = ''; private lastHash = ''; async shouldCapture(c: NormalizedConversation): Promise<boolean> { const key = `${c.platform}:${c.externalConversationId}`; const hash = await contentHash(c); if (key === this.lastConversationKey && hash === this.lastHash) return false; this.lastConversationKey = key; this.lastHash = hash; return true; } reset(): void { this.lastConversationKey = ''; this.lastHash = ''; } get state(): { conversationKey: string; hash: string } { return { conversationKey: this.lastConversationKey, hash: this.lastHash }; } }

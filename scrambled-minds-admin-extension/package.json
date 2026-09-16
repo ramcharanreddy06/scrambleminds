@@ -1,0 +1,18 @@
+{
+  "name": "scrambled-minds-admin-extension",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc && vite build && node scripts/copy-manifest.mjs"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.280",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8",
+    "fake-indexeddb": "^6.0.0"
+  }
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Scrambled Minds · Member Console</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+    <main class="shell">
+      <header class="brand"><img class="brand-logo" src="scrambled-minds-logo.jpg" alt="Scrambled Minds logo"><div><p class="eyebrow">SCRAMBLED MINDS / MEMBER NODE</p><h1>Capture console</h1><p class="subline">Private research, routed with purpose.</p></div></header>
+      <section class="node-banner"><span class="live-dot"></span><span>MEMBER NODE</span><strong id="member-name">Member not configured</strong></section>
+      <p class="muted">Turn capture on for project research. Turn it off for personal AI conversations.</p>
+      <section class="status-card"><div class="section-label"><span class="pulse-icon">⌁</span> IDENTITY STATUS</div><strong id="member-detail">Prepare this copy before use.</strong><span class="status-caption">Scoped to your assigned project workspace</span><div class="status-metrics"><span><b>06</b><small>PLATFORMS</small></span><span><b>LOCAL</b><small>PRIVACY MODE</small></span><span><b>READY</b><small>RELAY STATE</small></span></div></section>
+      <section class="control-card"><div class="control-heading"><div><div class="section-label"><span class="kicker-dot"></span> CAPTURE ENGINE</div><h2>Project conversation capture</h2></div><span class="control-code">SM-01</span></div><p class="control-copy">Capture is only active when you explicitly enable it. Personal conversations remain protected.</p><button id="capture-toggle" class="capture-toggle" type="button" aria-pressed="false"><span class="toggle-dot"></span><span id="toggle-label">Capture is OFF</span><span class="toggle-arrow">↗</span></button></section>
+      <section class="platform-card"><div class="section-label"><span class="kicker-dot cyan"></span> CONNECTED SURFACES</div><div class="platforms"><span class="platform chatgpt">C</span><span class="platform claude">✦</span><span class="platform gemini">✦</span><span class="platform perplexity">P</span><span class="platform deepseek">D</span><span class="platform grok">×</span><span class="platform-copy">Conversation adapters armed</span></div></section>
+      <p id="sync-status" class="message" role="status"></p>
+      <footer><span>SCRAMBLED MINDS</span><span>PRIVATE BY DESIGN</span></footer>
+    </main>
+    <script src="member-config.js"></script><script src="popup.js"></script>
+  </body>
+</html>

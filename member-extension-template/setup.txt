@@ -1,0 +1,37 @@
+SCRAMBLED MINDS MEMBER EXTENSION — PRIVATE SETUP
+
+This folder is a public template. Make a private copy for every member before configuring it.
+
+ADMIN PREPARATION
+
+1. Deploy the Apps Script backend by following ..\PUBLIC_SETUP.txt.
+2. In the admin extension, provision the member using the member's Google email.
+3. Export the invite through the admin extension and deliver it privately.
+4. Copy this complete folder to a private member-specific folder.
+5. Open the private copy's src\member-config.js.
+6. Fill in backendUrl, memberId, email, and memberToken from the deployment and invite.
+7. Do not add the admin key to the member configuration.
+8. Do not commit the configured copy, invite JSON, backend URL, or token.
+
+MEMBER INSTALLATION
+
+1. Open chrome://extensions.
+2. Enable Developer mode.
+3. Click Load unpacked.
+4. Select the complete private copied folder containing manifest.json.
+5. Open the Scrambled Minds popup and verify the expected member identity.
+6. Turn Capture ON only for project conversations.
+
+CAPTURE CONTROL
+
+Capture starts OFF. Turn it ON for project research and OFF for personal AI conversations. OFF means new conversations are ignored and not queued or uploaded.
+
+SUPPORTED PLATFORMS
+
+ChatGPT, Claude, Gemini, Perplexity, DeepSeek, and Grok.
+
+The member does not run a server and does not need the admin laptop online. The deployed Google Apps Script backend is the shared cloud endpoint.
+
+AFTER CONFIGURATION CHANGES
+
+Reload the extension from chrome://extensions. Test with a fresh conversation and confirm the new chat appears in the member's Drive area.

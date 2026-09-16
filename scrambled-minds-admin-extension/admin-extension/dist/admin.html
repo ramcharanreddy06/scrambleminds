@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scrambled Minds Â· Command Center</title>
+    <script type="module" crossorigin src="/admin.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/admin-DSXsjq7z.css">
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+    <main class="shell">
+      <header class="header">
+        <div class="brand-lockup"><img class="brand-logo" src="/assets/scrambled-minds-logo-BSK3Eh1e.jpg" alt="Scrambled Minds logo" /><div><p class="eyebrow">SCRAMBLED MINDS / ADMIN CORE</p><h1>Command center</h1><p class="muted">Your teamâ€™s private intelligence layer, ready for deployment.</p></div></div>
+        <div class="header-status"><span class="live-dot"></span><span>LOCAL CONTROL</span><span class="badge badge-local">v0.1</span></div>
+      </header>
+
+      <section class="signal-strip" aria-label="Workspace status">
+        <div class="signal"><span class="signal-icon">âœ¦</span><div><strong id="signal-members">0</strong><small>TEAM MEMBERS</small></div></div>
+        <div class="signal"><span class="signal-icon cyan">âŒ</span><div><strong>06</strong><small>PLATFORMS READY</small></div></div>
+        <div class="signal"><span class="signal-icon lime">â†—</span><div><strong>100%</strong><small>LOCAL PRIVACY</small></div></div>
+        <div class="signal signal-pulse"><span class="pulse-ring"></span><div><strong>STANDBY</strong><small>CAPTURE ENGINE</small></div></div>
+      </section>
+
+      <section class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow accent-eyebrow">MISSION BRIEF</p>
+          <h2>Turn scattered AI work<br /><em>into team memory.</em></h2>
+          <p class="muted">Connect your cloud, activate your members, and let Scrambled Minds quietly organize every useful conversation.</p>
+          <div class="platform-row" aria-label="Supported platforms"><span class="platform chatgpt">C</span><span class="platform claude">âœ¦</span><span class="platform gemini">âœ¦</span><span class="platform perplexity">P</span><span class="platform deepseek">D</span><span class="platform grok">Ã—</span><span class="platform-more">+ team-wide capture</span></div>
+        </div>
+        <div class="orbital-card"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="core"><span>SM</span><small>ONLINE</small></div><div class="orbit-label label-one">CAPTURE</div><div class="orbit-label label-two">SYNC</div><div class="orbit-label label-three">RECALL</div></div>
+      </section>
+
+      <section class="card command-card"><div class="section-heading"><div><div class="section-kicker"><span class="kicker-dot"></span> CORE CONNECTION</div><h2>Cloud connection</h2><p class="muted">Settings stay in this browser until the secure backend is connected.</p></div><span class="card-index">01</span></div><form id="settings-form" class="form-grid"><label>Organization name<input id="organization-name" required maxlength="80" placeholder="Enter your organization name" /></label><label>Cloud root folder<input id="cloud-root-folder" required maxlength="120" /></label><label class="wide">Backend URL<input id="backend-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" /></label><label class="wide secret-field">Private admin key<input id="admin-key" type="password" autocomplete="off" placeholder="Paste locally; never share it in chat" /><span class="field-note">Encrypted in browser storage Â· never included in exports</span></label><div class="actions wide"><button class="secondary" type="submit">Save settings <span>â†—</span></button><button id="test-connection" class="secondary ghost-button" type="button">Test connection</button><span id="settings-status" class="status"></span></div></form></section>
+
+      <section class="card member-card"><div class="section-heading"><div><div class="section-kicker"><span class="kicker-dot cyan"></span> IDENTITY PROVISIONING</div><h2>Add team member</h2><p class="muted">No passwords are collected or stored. Each member gets a scoped activation invite.</p></div><span class="card-index">02</span></div><form id="member-form" class="form-grid"><label>Member name<input id="member-name" required maxlength="80" placeholder="member" /></label><label>Google email<input id="member-email" required type="text" inputmode="email" maxlength="160" placeholder="member@gmail.com" /></label><div class="actions wide"><button class="primary" type="submit"><span class="button-orb"></span> Provision member</button><span id="member-status" class="status"></span></div></form></section>
+
+      <section class="card roster-card"><div class="section-heading"><div><div class="section-kicker"><span class="kicker-dot lime"></span> ACTIVE ROSTER</div><h2>Members <span id="member-count" class="count">0</span></h2><p class="muted">Cloud folders are assigned by member ID after backend provisioning.</p></div><div class="section-actions"><button id="refresh-members" class="secondary refresh-button" type="button"><span class="refresh-glyph">â†»</span> Refresh from cloud</button></div></div><div class="roster-line"><span></span><i></i><i></i><i></i><span></span></div><div id="empty-members" class="empty"><div class="empty-orbit">â—Ž</div><strong>No members in orbit yet</strong><small>Provision your first member to activate the team capture network.</small></div><div id="members" class="members" aria-live="polite"></div></section>
+
+      <section class="card footer-card danger-zone"><div><div class="section-kicker"><span class="kicker-dot warm"></span> LOCAL OPERATIONS</div><h2>Admin data</h2><p class="muted">Export a backup before changing devices. Clearing this cache never deletes cloud members or Drive files.</p></div><div class="actions"><button id="export-button" class="secondary" type="button">Export registry <span>â†“</span></button><button id="clear-button" class="danger" type="button">Clear local cache only</button></div></section>
+      <footer><span>SCRAMBLED MINDS</span><span>PRIVATE BY DESIGN Â· BUILT FOR HUMAN + AI TEAMS</span></footer>
+    </main>
+  </body>
+</html>
+

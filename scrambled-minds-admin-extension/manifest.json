@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Scrambled Minds Admin",
+  "version": "0.1.0",
+  "description": "Privacy-conscious offline capture and synchronization of team AI conversations.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["http://localhost:8000/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "Buddy Conversation Cloud" },
+  "content_scripts": [{ "matches": ["https://chatgpt.com/*", "https://*.chatgpt.com/*", "https://claude.ai/*", "https://*.claude.ai/*", "https://gemini.google.com/*", "https://grok.com/*", "https://*.grok.com/*", "https://deepseek.com/*", "https://*.deepseek.com/*", "https://perplexity.ai/*", "https://*.perplexity.ai/*"], "js": ["content.js"], "run_at": "document_idle" }]
+}

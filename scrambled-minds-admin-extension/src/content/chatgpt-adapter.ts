@@ -1,0 +1,4 @@
+import type { RawConversation } from '../shared/normalizer';
+export function conversationIdFromUrl(url = location.href): string | null { const match = new URL(url).pathname.match(/\/c\/([a-zA-Z0-9_-]+)/); return match?.[1] ?? null; }
+function text(element: Element): string { return (element.textContent ?? '').replace(/\u00a0/g, ' ').trim(); }
+export function extractChatGPTConversation(doc: Document = document): RawConversation | null { const id = conversationIdFromUrl(); if (!id) return null; const nodes = [...doc.querySelectorAll('[data-message-author-role]')]; const messages = nodes.map(node => ({ role: node.getAttribute('data-message-author-role') ?? undefined, content: text(node) })).filter(message => message.content.length > 0); if (messages.length === 0) return null; const title = text(doc.querySelector('h1') ?? doc.querySelector('title')!); return { platform: 'chatgpt', externalConversationId: id, title, sourceUrl: location.href, messages }; }

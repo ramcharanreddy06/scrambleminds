@@ -1,0 +1,6 @@
+import type { MessageRole, NormalizedConversation, NormalizedMessage, PlatformSlug } from './types';
+export interface RawMessage { role?: string; content?: string; model?: string; }
+export interface RawConversation { platform: PlatformSlug; externalConversationId: string; title?: string; sourceUrl?: string; messages: RawMessage[]; }
+function roleOf(value?: string): MessageRole { const role = (value ?? '').toLowerCase(); if (role.includes('user') || role.includes('human')) return 'user'; if (role.includes('system')) return 'system'; if (role.includes('tool')) return 'tool'; return 'assistant'; }
+function clean(value?: string): string { return (value ?? '').replace(/\u0000/g, '').replace(/\r\n/g, '\n').trim(); }
+export function normalizeConversation(raw: RawConversation, localCaptureId: string, capturedAt = new Date().toISOString()): NormalizedConversation { const messages: NormalizedMessage[] = raw.messages.map(m => ({ role: roleOf(m.role), content: clean(m.content), model: m.model?.trim() || undefined })).filter(m => m.content.length > 0).map((m, i) => ({ ...m, sequence: i + 1 })); return { localCaptureId, platform: raw.platform, externalConversationId: clean(raw.externalConversationId), title: clean(raw.title) || 'Untitled Conversation', sourceUrl: clean(raw.sourceUrl) || globalThis.location?.href || '', capturedAt, messages }; }

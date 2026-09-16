@@ -1,0 +1,25 @@
+﻿# Installation-specific secrets and private exports
+member-extension-template/src/member-config.local.js
+**/member-config.local.js
+**/*invite*.json
+**/*admin-key*
+**/*token*
+*.local
+.env
+.env.*
+
+# Dependencies and local caches
+**/node_modules/
+**/.npm-cache/
+**/.tmp/
+**/.vitest-cache/
+
+# Generated build output is kept only when intentionally released
+# scrambled-minds-admin-extension/dist/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+
